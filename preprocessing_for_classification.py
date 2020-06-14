@@ -24,7 +24,7 @@ from imblearn.over_sampling import SMOTE
 
 
 file_name = 'pulse.xlsx'
-dataframe = pd.read_csv(file_name)
+dataframe = pd.read_excel(file_name)
 num_rec = dataframe.shape[0]
 
 
