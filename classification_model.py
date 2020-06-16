@@ -8,9 +8,6 @@ from playwithML import preprocessing_for_classification as pfc
 import xgboost
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
-from pandas_profiling import profile_report
-from sklearn.metrics import f1_score, precision_score, jaccard_score
-from sklearn.feature_selection import SelectKBest, chi2, f_classif
 from sklearn.svm import SVC
 from sklearn.linear_model import SGDClassifier
 from sklearn.tree import DecisionTreeClassifier
