@@ -6,6 +6,7 @@ Created on Fri Jun 12 11:37:03 2020
 """
 
 ## Lets import the libraries
+import random
 import pandas as pd
 # import xgboost
 # import matplotlib.pyplot as plt
@@ -20,7 +21,7 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 # from sklearn.metrics import f1_score, precision_score, jaccard_score
 # from sklearn.feature_selection import SelectKBest, chi2, f_classif
 # from sklearn.svm import SVC
-from imblearn.over_sampling import SMOTE
+from imblearn.over_sampling import SMOTE,RandomOverSampler
 
 
 file_name = 'pulse.xlsx'
@@ -71,17 +72,7 @@ def scale(X_train,X_test):
 ## Function for oversampling
 def oversample(X,y):
     
-    smote = SMOTE()
+    smote = random.choice(SMOTE(),RandomOverSampler())
     X,y = smote.fit_resample(X,y)
     return X,y
-<<<<<<< HEAD
-=======
 
-
-
-    
-    
-    
-    
-    
->>>>>>> 30ba8b92c6b07b9d4d8a5aad7592e01ebe0a1fd0
