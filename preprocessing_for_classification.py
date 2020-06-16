@@ -24,7 +24,7 @@ from imblearn.over_sampling import SMOTE
 
 
 file_name = 'pulse.xlsx'
-dataframe = pd.read_csv(file_name)
+dataframe = pd.read_excel(file_name)
 num_rec = dataframe.shape[0]
 
 
@@ -32,10 +32,11 @@ num_rec = dataframe.shape[0]
 def fill_na(dataframe):
 
     for col in dataframe.columns:
-        if dataframe[col].isnull().count()*2 >= num_rec:
-            dataframe = dataframe.drop([col], axis=1)
-        else:
-            dataframe[col] = dataframe[col].fillna(dataframe[col].mean())
+        if dataframe[col].dtype.name != 'object':
+            if (dataframe[col].isnull().sum())*2 >= num_rec:
+                dataframe = dataframe.drop([col], axis=1)
+            else:
+                dataframe[col] = dataframe[col].fillna(dataframe[col].mean())
     return dataframe
 
 
@@ -73,11 +74,3 @@ def oversample(X,y):
     smote = SMOTE()
     X,y = smote.fit_resample(X,y)
     return X,y
-
-
-
-    
-    
-    
-    
-    
