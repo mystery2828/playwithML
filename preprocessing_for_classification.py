@@ -74,3 +74,14 @@ def oversample(X,y):
     smote = SMOTE()
     X,y = smote.fit_resample(X,y)
     return X,y
+<<<<<<< HEAD
+=======
+
+
+
+    
+    
+    
+    
+    
+>>>>>>> 30ba8b92c6b07b9d4d8a5aad7592e01ebe0a1fd0
