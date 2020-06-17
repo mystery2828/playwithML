@@ -8,19 +8,8 @@ Created on Fri Jun 12 11:37:03 2020
 ## Lets import the libraries
 import random
 import pandas as pd
-# import xgboost
-# import matplotlib.pyplot as plt
-# import seaborn as sns
 from sklearn.model_selection import train_test_split
-# from sklearn.linear_model import LogisticRegression, SGDClassifier
-# from sklearn.tree import tree
-# from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler, LabelEncoder
-# from sklearn.pipeline import Pipeline
-# from pandas_profiling import profile_report
-# from sklearn.metrics import f1_score, precision_score, jaccard_score
-# from sklearn.feature_selection import SelectKBest, chi2, f_classif
-# from sklearn.svm import SVC
 from imblearn.over_sampling import SMOTE,RandomOverSampler
 
 
@@ -42,10 +31,9 @@ def fill_na(dataframe):
 
 
 ## Function for splitting the dataset        
-def splitdata(dataframe):
+def splitdata(X,y):
     
-    X = dataframe.iloc[:,:-1]
-    y = dataframe.iloc[:,-1]
+    
     X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.25)
     return X_train, X_test, y_train, y_test
 
@@ -72,7 +60,7 @@ def scale(X_train,X_test):
 ## Function for oversampling
 def oversample(X,y):
     
-    smote = random.choice(SMOTE(),RandomOverSampler())
+    smote = random.choice([SMOTE(),RandomOverSampler()])
     X,y = smote.fit_resample(X,y)
     return X,y
 
