@@ -12,7 +12,8 @@ from sklearn.svm import SVC
 from sklearn.linear_model import SGDClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import GradientBoostingClassifier
-
+from sklearn.metrics import jaccard_similarity_score, precision_score,\
+    recall_score, accuracy_score, f1_score
 
 ## Function for RandomForestClassifier
 def randomforestclassifier(X_train,X_test,y_train,y_test):
@@ -60,3 +61,10 @@ def gradientboostingclassifier(X_train,X_test,y_train,y_test):
     classifier = GradientBoostingClassifier()
     classifier.fit(X_train,y_train)
     return classifier.predict(X_test)
+
+
+
+print('Accuracy score is: {}'.format(accuracy_score(y_test,cmp)))
+print('f1 score is: {}'.format(f1_score(y_test,cmp,average='weighted')))
+print('Recall score is: {}'.format(recall_score(y_test,cmp,average='weighted')))
+print('Precision score is: {}'.format(precision_score(y_test,cmp,average='weighted')))
