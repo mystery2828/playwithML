@@ -4,7 +4,6 @@ Created on Tue Jun 16 13:51:12 2020
 
 @author: Akash
 """
-from playwithML import preprocessing_for_classification as pfc
 import xgboost
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
@@ -12,6 +11,7 @@ from sklearn.svm import SVC
 from sklearn.linear_model import SGDClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.ensemble import AdaBoostClassifier
 from sklearn.metrics import jaccard_similarity_score, precision_score,\
     recall_score, accuracy_score, f1_score
 
@@ -61,6 +61,14 @@ def gradientboostingclassifier(X_train,X_test,y_train,y_test):
     classifier = GradientBoostingClassifier()
     classifier.fit(X_train,y_train)
     return classifier.predict(X_test)
+
+## Function for adaboost
+def adaboostclassifier(X_train,X_test,y_train,y_test):
+    
+    classifier = AdaBoostClassifier()
+    classifier.fit(X_train, y_train)
+    return classifier.predict(X_test)
+    
 
 
 
