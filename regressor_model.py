@@ -15,7 +15,7 @@ from sklearn.linear_model import LinearRegression,Ridge,Lasso
 
 
 #Linear Regression
-def linreg(X_train,y_train,X_test,y_test):
+def linearregressor(X_train,y_train,X_test,y_test):
     lin_regressor=LinearRegression()
     lin_regressor.fit(X_train,y_train)
     prediction_linear=lin_regressor.predict(X_test)
@@ -26,29 +26,15 @@ def linreg(X_train,y_train,X_test,y_test):
 #Ridge Regression
 def ridgeregressor(X_train,y_train,X_test,y_test):
     ridge_regressor=Ridge()
-    a=[]
-    for i in range(1, 10):
-        a.append(random.uniform(0, 100))
-    parameters={'alpha':a}
-    ridge_regressor=GridSearchCV(ridge_regressor,parameters,cv=10)
     ridge_regressor.fit(X_train,y_train)
     prediction_ridge=ridge_regressor.predict(X_test)
-    print(ridge_regressor.best_params_)
-    print(ridge_regressor.best_score_)
     return prediction_ridge
 
 #Lasso Regression
 def lassoregressor(X_train,y_train,X_test,y_test):
     lasso_regressor=Lasso()
-    a = []
-    for i in range(1,10):
-        a.append(random.uniform(0, 100))
-        parameters={'alpha':a}
-    lasso_regressor=GridSearchCV(lasso_regressor,parameters,cv=10)
     lasso_regressor.fit(X_train,y_train)
     prediction_lasso=lasso_regressor.predict(X_test)
-    print(lasso_regressor.best_params_)
-    print(lasso_regressor.best_score_)
     return prediction_lasso
 
 #Decision Tree Regression
