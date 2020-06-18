@@ -10,7 +10,6 @@ from sklearn.pipeline import Pipeline
 import pandas as pd
 import random
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.model_selection import GridSearchCV
 from sklearn.linear_model import LinearRegression,Ridge,Lasso
 
 
