@@ -7,11 +7,12 @@ Created on Sun Jun 14 09:48:12 2020
 
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import RobustScaler,StandardScaler
+from sklearn.preprocessing import RobustScaler,StandardScaler,LabelEncoder
+from sklearn.model_selection import train_test_split
 
 
 file_name='winequality.csv'
-df = pd.read_csv(file_name)
+dataframe = pd.read_csv(file_name)
 
 
 #removing duplicate rows
@@ -21,26 +22,30 @@ def dupli(dataframe):
 
 
 ## Function to fill the NaN values
-def fill_na(df):
-    for col in df.columns:
-        if df[col].isnull().count()*3 >= df.shape[0]:
-            df = df.drop([col], axis=1)
+def fill_na(dataframe):
+    for col in dataframe.columns:
+        if dataframe[col].isnull().count()*3 >= dataframe.shape[0]:
+            dataframe = dataframe.drop([col], axis=1)
         else:
-            df[col] = df[col].fillna(df[col].mean())
-    return df
+            dataframe[col] = dataframe[col].fillna(dataframe[col].mean())
+    return dataframe
 
 
-X=df.iloc[:,0:-1]  ## independent features
-y=df.iloc[:,-1]  ## dependent features
-
-
-from sklearn.model_selection import train_test_split
 ## Function for splitting the dataset        
 def splitdata(dataframe):
     X = dataframe.iloc[:,:-1]
     y = dataframe.iloc[:,-1]
     X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.3)
     return X_train, X_test, y_train, y_test
+
+
+## Function for labelencoding
+def encode(dataframe):
+    for col in dataframe.columns:
+        if dataframe[col].dtype.name == 'object':
+            le = LabelEncoder()
+            dataframe[col] = le.fit_transform(dataframe[col])
+    return dataframe
 
 
 ## Function for Scaling
