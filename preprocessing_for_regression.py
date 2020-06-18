@@ -24,7 +24,7 @@ def dupli(dataframe):
 ## Function to fill the NaN values
 def fill_na(dataframe):
     for col in dataframe.columns:
-        if dataframe[col].isnull().count()*3 >= dataframe.shape[0]:
+        if dataframe[col].isnull().count()*2 >= dataframe.shape[0]:
             dataframe = dataframe.drop([col], axis=1)
         else:
             dataframe[col] = dataframe[col].fillna(dataframe[col].mean())
@@ -35,7 +35,7 @@ def fill_na(dataframe):
 def splitdata(dataframe):
     X = dataframe.iloc[:,:-1]
     y = dataframe.iloc[:,-1]
-    X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.3)
+    X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.25)
     return X_train, X_test, y_train, y_test
 
 
