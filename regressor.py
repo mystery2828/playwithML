@@ -5,7 +5,6 @@ Created on Fri Jun 19 17:11:50 2020
 @author: Ashwin Sharma P
 """
 
-#from playwithML import preprocessing_for_regression as pfr
 from sklearn.pipeline import Pipeline
 import pandas as pd
 import numpy as np
@@ -27,10 +26,11 @@ num_rec = dataframe.shape[0]
 
 #removing duplicate rows
 def dupli(dataframe):
+    
     dataframe.drop_duplicates(subset=None, keep='first', inplace=True)
     return dataframe
 
-
+#function for filling NaN values
 def fill_na(dataframe):
 
     for col in dataframe.columns:
@@ -59,6 +59,7 @@ def encode(dataframe):
 
 ## Function for Scaling
 def scale(X_train,X_test):
+    
     sc = RobustScaler()   
     X_train = sc.fit_transform(X_train)
     X_test = sc.transform(X_test)
@@ -86,6 +87,7 @@ def encode(dataframe):
 
 #Linear Regression
 def linearregressor(X_train,X_test,y_train,y_test):
+    
     regressor=LinearRegression()
    # parameters=[{'beta':[None]}]
    # regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=10)
@@ -159,9 +161,8 @@ dataframe = encode(dataframe)
 
 
 X = dataframe.iloc[:,:-1]
-print(X.shape)
 y = dataframe.iloc[:,-1]
-print(y.shape)
+
 
 X,y = oversample(X,y)
 
