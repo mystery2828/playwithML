@@ -87,22 +87,19 @@ def encode(dataframe):
 
 #Linear Regression
 def linearregressor(X_train,X_test,y_train,y_test):
-    
     regressor=LinearRegression()
-   # parameters=[{'beta':[None]}]
-   # regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=10)
+    parameters=[{'n_jobs':[None]}]
+    regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=10)
     regressor.fit(X_train,y_train)
     print ("r2/variance for linear regressor is: ", regressor.score(X_test,y_test))
     print ("Residual sum of squares for linear regressor is: %.2f" % np.mean((regressor.predict(X_test) - y_test) ** 2))
+    print(regressor.best_estimator_)
     return regressor.predict(X_test)
 
 #Ridge Regression
 def ridgeregressor(X_train,X_test,y_train,y_test):
     regressor=Ridge()
-    a=[]
-    for i in range(1, 10):
-        a.append(random.uniform(0, 100))
-    parameters={'alpha':a}
+    parameters=[{'random_state':[None]}]
     regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=10)
     regressor.fit(X_train,y_train)
     print ("r2/variance for ridge regressor is:",regressor.score(X_test,y_test))
@@ -110,14 +107,10 @@ def ridgeregressor(X_train,X_test,y_train,y_test):
     print(regressor.best_estimator_)
     return regressor.predict(X_test)
     
-
 #Lasso Regression
 def lassoregressor(X_train,X_test,y_train,y_test):
     regressor=Lasso()
-    a = []
-    for i in range(1,10):
-        a.append(random.uniform(0, 100))
-        parameters={'alpha':a}
+    parameters=[{'random_state':[None]}]
     regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=10)
     regressor.fit(X_train,y_train)
     print ("r2/variance for lasso regressor is: ", regressor.score(X_test,y_test))
@@ -128,27 +121,24 @@ def lassoregressor(X_train,X_test,y_train,y_test):
 #Decision Tree Regression
 def decisiontreeregressor(X,y):
     regressor = DecisionTreeRegressor()
-    cross_val_score(regressor, X, y,scoring='r2', cv=10)
+    parameters=[{'max_depth':[None]}]
+    regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=10)
     regressor.fit(X,y)
     print ("r2/variance for decision tree regressor is: ", regressor.score(X_test,y_test))
     print ("Residual sum of squares for decision tree regressor is: %.2f" % np.mean((regressor.predict(X_test) - y_test) ** 2))
+    print(regressor.best_estimator_)
     return regressor.predict(X_test)
 
-
-
+#Gradient Boosting Regression
 def gradientboostingregressor(X_train,X_test,y_train,y_test):
     regressor = GradientBoostingRegressor()
-    parameters ={'max_features':[None]
-                 }
-    regressor = GridSearchCV(estimator=regressor, param_grid = parameters, cv = 2, n_jobs=-1)
+    parameters ={'max_features':[None]}
+    regressor = GridSearchCV(regressor,parameters,scoring='r2', cv=5)
     regressor.fit(X_train,y_train)
     print ("r2/variance for gradient boosting regressor is: ", regressor.score(X_test,y_test))
     print ("Residual sum of squares for gradient boosting regressor is: %.2f" % np.mean((regressor.predict(X_test) - y_test) ** 2))
     print(regressor.best_estimator_)
     return regressor.predict(X_test)
-
-
-
 
 
 ### Calling out the functions
