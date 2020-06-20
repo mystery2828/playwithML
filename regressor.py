@@ -5,7 +5,6 @@ Created on Fri Jun 19 17:11:50 2020
 @author: Ashwin Sharma P
 """
 
-from sklearn.pipeline import Pipeline
 import pandas as pd
 import numpy as np
 import random
@@ -14,10 +13,7 @@ from sklearn.linear_model import LinearRegression,Ridge,Lasso
 from sklearn.preprocessing import RobustScaler,StandardScaler,LabelEncoder
 from sklearn.model_selection import train_test_split, GridSearchCV
 from imblearn.over_sampling import SMOTE,RandomOverSampler
-from sklearn.model_selection import cross_val_score
-from sklearn.metrics import r2_score
 from sklearn.ensemble import GradientBoostingRegressor
-from xgboost.sklearn import XGBRegressor
 
 file_name='winequality.csv'
 dataframe=pd.read_csv(file_name)
