@@ -245,10 +245,10 @@ for i in range(7):
 
 
     ### Time for printingout the result
-    
-    print('Accuracy score of {} is: {}'.format(selected_option,accuracy_score(y_test,classifier_output[0])))
-    print('f1 score of {} is: {}'.format(selected_option,f1_score(y_test,classifier_output[0],average='weighted')))
-    print('Recall score of {} is: {}'.format(selected_option,recall_score(y_test,classifier_output[0],average='weighted')))
-    print('Precision score of {} is: {}'.format(selected_option,precision_score(y_test,classifier_output[0],average='weighted')))
-    print('Selected parameters are \n{}'.format(classifier_output[1]))
-    print('')
+    asd = classifier_output[1]
+    # print('Accuracy score of {} is: {}'.format(selected_option,accuracy_score(y_test,classifier_output[0])))
+    # print('f1 score of {} is: {}'.format(selected_option,f1_score(y_test,classifier_output[0],average='weighted')))
+    # print('Recall score of {} is: {}'.format(selected_option,recall_score(y_test,classifier_output[0],average='weighted')))
+    # print('Precision score of {} is: {}'.format(selected_option,precision_score(y_test,classifier_output[0],average='weighted')))
+    # print('Selected parameters are \n{}'.format(classifier_output[1]))
+    print(type(asd))
