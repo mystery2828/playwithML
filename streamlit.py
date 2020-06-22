@@ -22,7 +22,7 @@ from imblearn.over_sampling import SMOTE, RandomOverSampler
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import GradientBoostingClassifier, AdaBoostClassifier, RandomForestClassifier, GradientBoostingRegressor
-from sklearn.metrics import precision_score, recall_score, accuracy_score, f1_score, mean_squared_error
+from sklearn.metrics import precision_score, recall_score, accuracy_score, f1_score, mean_squared_error, plot_confusion_matrix
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.linear_model import LinearRegression, Ridge, Lasso, SGDClassifier
 
@@ -31,12 +31,7 @@ st.title("PLAY WITH ML {}".format(emoji.emojize(":computer:")))
 st.subheader("Made with {} by Akash, Ashwin, Apeksha".format(emoji.emojize(":heart:")))
 st.subheader("Upload a dataset {}".format(emoji.emojize(":cloud:")))
 file_name = st.file_uploader("Please upload a small dataset(.csv or .xlsx) as the app is still in development stage :)", type=["csv","xlsx"])
-# flag = 0
-
-# if st.checkbox(".xlsx"):
-#     flag = 1
-# elif st.checkbox(".csv"):
-#     flag = 2
+st.text('*Try to avoid columns with nan values for categorical features')
 
 option = st.selectbox("PLease select the format of your file",
     ["Select one",
@@ -54,6 +49,7 @@ def fill_na(dataframe):
                 dataframe = dataframe.drop([col], axis=1)
             else:
                 dataframe[col] = dataframe[col].fillna(dataframe[col].mean())
+                
     return dataframe
 
 
@@ -148,8 +144,8 @@ if file_name is not None and option != "Select one":
                                   cv = 2)
                 gs.fit(X_train, y_train)
                 classifier = gs.best_estimator_
-                classifier.fit(X_train,y_train)
-                return classifier.predict(X_test), gs.best_params_
+                c = classifier.fit(X_train,y_train)
+                return classifier.predict(X_test), gs.best_params_, c
                 
             
             ## Function for DecisionTreeCLassifier
@@ -165,8 +161,8 @@ if file_name is not None and option != "Select one":
                                   cv = 2)
                 gs.fit(X_train, y_train)
                 classifier = gs.best_estimator_
-                classifier.fit(X_train,y_train)
-                return classifier.predict(X_test), gs.best_params_
+                c = classifier.fit(X_train,y_train)
+                return classifier.predict(X_test), gs.best_params_, c
             
             
             ## Function for SVC
@@ -183,7 +179,7 @@ if file_name is not None and option != "Select one":
                 gs.fit(X_train, y_train)
                 classifier = gs.best_estimator_
                 classifier.fit(X_train,y_train)
-                return classifier.predict(X_test), gs.best_params_
+                return classifier.predict(X_test), gs.best_params_, classifier.fit(X_train,y_train)
             
             
             ## Function for sgdclassifier
@@ -199,8 +195,8 @@ if file_name is not None and option != "Select one":
                                   cv = 2)
                 gs.fit(X_train, y_train)
                 classifier = gs.best_estimator_
-                classifier.fit(X_train,y_train)
-                return classifier.predict(X_test), gs.best_params_
+                c = classifier.fit(X_train,y_train)
+                return classifier.predict(X_test), gs.best_params_, c
             
             
             ## Function for gradientboostingclassifier
@@ -216,8 +212,8 @@ if file_name is not None and option != "Select one":
                                   cv = 2)
                 gs.fit(X_train, y_train)
                 classifier = gs.best_estimator_
-                classifier.fit(X_train,y_train)
-                return classifier.predict(X_test), gs.best_params_
+                c = classifier.fit(X_train,y_train)
+                return classifier.predict(X_test), gs.best_params_, c
             
             
             ## Function for adaboost
@@ -233,8 +229,8 @@ if file_name is not None and option != "Select one":
                                   cv = 2)
                 gs.fit(X_train, y_train)
                 classifier = gs.best_estimator_
-                classifier.fit(X_train,y_train)
-                return classifier.predict(X_test), gs.best_params_
+                c = classifier.fit(X_train,y_train)
+                return classifier.predict(X_test), gs.best_params_, c
     
     
             ## Model functions
@@ -264,14 +260,16 @@ if file_name is not None and option != "Select one":
             time.sleep(1)
             st.write('Be safe, wear a mask{}'.format(emoji.emojize(':mask:')))
             time.sleep(1)
-            st.write('Your scores are here')           
+            st.write('Your scores are here {}'.format(emoji.emojize(':raised_hands:')))
             time.sleep(1)
+            st.write("\n")
             st.write('Accuracy score of {} is: {}'.format(classifier_choice,accuracy_score(y_test,classifier_output[0])))
             st.write('f1 score of {} is: {}'.format(classifier_choice,f1_score(y_test,classifier_output[0],average='weighted')))
             st.write('Recall score of {} is: {}'.format(classifier_choice,recall_score(y_test,classifier_output[0],average='weighted')))
             st.write('Precision score of {} is: {}'.format(classifier_choice,precision_score(y_test,classifier_output[0],average='weighted')))
             st.write('Selected parameters are: ',classifier_output[1])
-            file = open('classifiercode.txt','r')
+            st.subheader("Code")
+            file = open('codes_to_display/'+classifier_choice+' Code.txt','r')
             classifier_code = file.read()
             st.code(classifier_code, language='python')
             file.close()
@@ -368,9 +366,18 @@ if file_name is not None and option != "Select one":
              ### Time for printingout the result
                 
             st.write('My system caught on {} training your model to get the output for you {}'.format(emoji.emojize(':fire:'), emoji.emojize(':satisfied:')))
+            time.sleep(1)
             st.write('Be safe, wear a mask{}'.format(emoji.emojize(':mask:')))
-            st.write('Your scores are here')
+            time.sleep(1)
+            st.write('Your scores are here {}'.format(emoji.emojize(':raised_hands:')))
+            time.sleep(1)
+            st.write("\n")
             st.write("r2/variance for {} is: {}".format(regressor_choice, regressor_output[2]))
             st.write("Residual sum of squares is: {}".format(np.mean((regressor_output[0] - y_test) ** 2)))
             st.write("Mean Squared Error for {} is: {}".format(regressor_choice, mean_squared_error(y_test, regressor_output[0])))
             st.write('Selected parameters are: ',regressor_output[1])
+            st.subheader("Code")
+            file = open('codes_to_display/'+regressor_choice+' Code.txt','r')
+            regressor_code = file.read()
+            st.code(regressor_code, language='python')
+            file.close()

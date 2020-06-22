@@ -1,0 +1,74 @@
+import random
+import pandas as pd
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.preprocessing import StandardScaler, LabelEncoder
+from imblearn.over_sampling import SMOTE,RandomOverSampler
+from sklearn.linear_model import LinearRegression,Ridge,Lasso
+
+
+file_name = ''
+dataframe = pd.read_excel(file_name)
+num_rec = dataframe.shape[0]
+
+
+## Function to fill the NaN values
+def fill_na(dataframe):
+
+    for col in dataframe.columns:
+        if dataframe[col].dtype.name != 'object':
+            if (dataframe[col].isnull().sum())*2 >= num_rec:
+                dataframe = dataframe.drop([col], axis=1)
+            else:
+                dataframe[col] = dataframe[col].fillna(dataframe[col].mean())
+    return dataframe
+
+
+## Function for splitting the dataset        
+def splitdata(X,y):
+    
+    X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.25)
+    return X_train, X_test, y_train, y_test
+
+  
+## Function for labelencoding
+def encode(dataframe):
+    
+    for col in dataframe.columns:
+        if dataframe[col].dtype.name == 'object':
+            le = LabelEncoder()
+            dataframe[col] = le.fit_transform(dataframe[col])
+    return dataframe
+
+
+## Function for Scaling
+def scale(X_train,X_test):
+    
+    sc = StandardScaler()   
+    X_train = sc.fit_transform(X_train)
+    X_test = sc.transform(X_test)
+    return X_train, X_test
+
+dataframe = fill_na(dataframe)
+        
+dataframe = encode(dataframe)
+
+X = dataframe.iloc[:,:-1]
+y = dataframe.iloc[:,-1]
+
+
+splitreturn = splitdata(X,y)
+X_train,X_test,y_train,y_test = splitreturn[0],splitreturn[1],splitreturn[2],splitreturn[3]
+
+scalereturn = scale(X_train,X_test)
+X_train,X_test = scalereturn[0],scalereturn[1]
+
+#Ridge Regression
+def ridgeregressor(X_train,X_test,y_train,y_test):
+    regressor=Ridge()
+    parameters=[{'random_state':[None]}]
+    regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=2)
+    regressor.fit(X_train,y_train)
+    
+    return regressor.predict(X_test), regressor.best_params_, regressor.score(X_test,y_test)
+
+regressor_output = ridgeregressor(X_train,X_test,y_train,y_test)
