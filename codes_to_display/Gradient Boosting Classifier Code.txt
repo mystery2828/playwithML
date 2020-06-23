@@ -46,6 +46,13 @@ def scale(X_train,X_test):
     X_train = sc.fit_transform(X_train)
     X_test = sc.transform(X_test)
     return X_train, X_test
+    
+## Function for oversampling
+def oversample(X,y):
+    
+    smote = random.choice([SMOTE(),RandomOverSampler()])
+    X,y = smote.fit_resample(X,y)
+    return X,y
 
 dataframe = fill_na(dataframe)
         

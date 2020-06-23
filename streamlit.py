@@ -27,7 +27,14 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.linear_model import LinearRegression, Ridge, Lasso, SGDClassifier
 
   
-st.title("PLAY WITH ML {}".format(emoji.emojize(":computer:")))
+
+html_temp = """
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <div style="background-color:#F1380C;font-family:Sans-serif;padding:10px">
+    <h2 style="color:white;text-align:center;">PLAY WITH ML <i class="material-icons">&#xe30a;</i></h2>
+    </div>
+    """
+st.markdown(html_temp,unsafe_allow_html=True)
 st.subheader("Made with {} by Akash, Ashwin, Apeksha".format(emoji.emojize(":heart:")))
 st.subheader("Upload a dataset {}".format(emoji.emojize(":cloud:")))
 file_name = st.file_uploader("Please upload a small dataset(.csv or .xlsx) as the app is still in development stage :)", type=["csv","xlsx"])
@@ -257,16 +264,16 @@ if file_name is not None and option != "Select one":
              ### Time for printingout the result
             
             st.write('My system caught on {} training your model to get the output for you {}'.format(emoji.emojize(':fire:'), emoji.emojize(':satisfied:')))
-            time.sleep(1)
+            time.sleep(1.5)
             st.write('Be safe, wear a mask{}'.format(emoji.emojize(':mask:')))
-            time.sleep(1)
+            time.sleep(1.5)
             st.write('Your scores are here {}'.format(emoji.emojize(':raised_hands:')))
-            time.sleep(1)
+            time.sleep(1.5)
             st.write("\n")
-            st.write('Accuracy score of {} is: {}'.format(classifier_choice,accuracy_score(y_test,classifier_output[0])))
-            st.write('f1 score of {} is: {}'.format(classifier_choice,f1_score(y_test,classifier_output[0],average='weighted')))
-            st.write('Recall score of {} is: {}'.format(classifier_choice,recall_score(y_test,classifier_output[0],average='weighted')))
-            st.write('Precision score of {} is: {}'.format(classifier_choice,precision_score(y_test,classifier_output[0],average='weighted')))
+            st.success('Accuracy score of {} is: {}'.format(classifier_choice,accuracy_score(y_test,classifier_output[0])))
+            st.success('f1 score of {} is: {}'.format(classifier_choice,f1_score(y_test,classifier_output[0],average='weighted')))
+            st.success('Recall score of {} is: {}'.format(classifier_choice,recall_score(y_test,classifier_output[0],average='weighted')))
+            st.success('Precision score of {} is: {}'.format(classifier_choice,precision_score(y_test,classifier_output[0],average='weighted')))
             st.write('Selected parameters are: ',classifier_output[1])
             st.subheader("Code")
             file = open('codes_to_display/'+classifier_choice+' Code.txt','r')
@@ -366,15 +373,15 @@ if file_name is not None and option != "Select one":
              ### Time for printingout the result
                 
             st.write('My system caught on {} training your model to get the output for you {}'.format(emoji.emojize(':fire:'), emoji.emojize(':satisfied:')))
-            time.sleep(1)
+            time.sleep(1.5)
             st.write('Be safe, wear a mask{}'.format(emoji.emojize(':mask:')))
-            time.sleep(1)
+            time.sleep(1.5)
             st.write('Your scores are here {}'.format(emoji.emojize(':raised_hands:')))
-            time.sleep(1)
+            time.sleep(1.5)
             st.write("\n")
-            st.write("r2/variance for {} is: {}".format(regressor_choice, regressor_output[2]))
-            st.write("Residual sum of squares is: {}".format(np.mean((regressor_output[0] - y_test) ** 2)))
-            st.write("Mean Squared Error for {} is: {}".format(regressor_choice, mean_squared_error(y_test, regressor_output[0])))
+            st.success("r2/variance for {} is: {}".format(regressor_choice, regressor_output[2]))
+            st.success("Residual sum of squares is: {}".format(np.mean((regressor_output[0] - y_test) ** 2)))
+            st.success("Mean Squared Error for {} is: {}".format(regressor_choice, mean_squared_error(y_test, regressor_output[0])))
             st.write('Selected parameters are: ',regressor_output[1])
             st.subheader("Code")
             file = open('codes_to_display/'+regressor_choice+' Code.txt','r')
