@@ -10,7 +10,7 @@ scikit-learn==0.22.1
 matplotlib>=1.4.3
 pandas>=0.19
 flasgger==0.9.4
-streamlit
+streamlit==0.61.0
 emoji==0.5.4
 imbalanced-learn==0.6.2
 imblearn==0.0
