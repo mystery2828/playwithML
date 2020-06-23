@@ -26,10 +26,25 @@ from sklearn.metrics import precision_score, recall_score, accuracy_score, f1_sc
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.linear_model import LinearRegression, Ridge, Lasso, SGDClassifier
 
-  
 
-st.title("PLAY WITH ML {}".format(emoji.emojize(":smiley:")))
-st.subheader("Made with {} by Akash, Ashwin, Apeksha".format(emoji.emojize(":heart:")))
+
+
+html_temp = """
+    <head>
+    <style>
+    .heading {
+    font-family:"Times New Roman", Times, serif;
+    font-size: large;
+    }
+    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <div style="background-color:blue;padding:10px">
+    <h2 class="heading" style="color:white;text-align:center;font-family:"Times New Roman", Times, serif; font-size:large;">PLAY WITH ML <i class="material-icons" style="font-size:36px;">computer</i></h2>
+    <p style="text-align:right;">Find us on LinkedIn <a style="color:white;" target="_blank" href='https://www.linkedin.com/in/akash-c-3a0468148/'>Akash</a>, <a style="color:white;" target="_blank" href='https://www.linkedin.com/in/ashwinsharmap'>Ashwin</a></p></div>
+    """
+st.markdown(html_temp,unsafe_allow_html=True)
+# st.subheader("Made with {} by Akash and Ashwin".format(emoji.emojize(":heart:")))
 st.subheader("Upload a dataset {}".format(emoji.emojize(":cloud:")))
 file_name = st.file_uploader("Please upload a small dataset(.csv or .xlsx) as the app is still in development stage :)", type=["csv","xlsx"])
 st.text('*Try to avoid columns with nan values for categorical features')
