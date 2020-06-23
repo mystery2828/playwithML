@@ -151,3 +151,39 @@ Pass in the dataframe as the parameter for this function and it will remove the 
 dupli(dataframe)
 
 Check out the documentation : https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.duplicated.html
+
+
+
+
+• Random Forest Classifier function
+It is an ensemble tree-based learning algorithm.
+The Random Forest Classifier is a set of decision trees from randomly selected subset of training set.
+It aggregates the votes from different decision trees to decide the final class of the test object.
+
+
+Importing the essential tools
+from sklearn.model_selection import GridSearchCV
+from sklearn.ensemble import RandomForestClassifier
+
+Function definition
+def randomforestclassifier(X_train,X_test,y_train,y_test):
+
+    classifier = RandomForestClassifier()
+    clffit = classifier.fit(X_train,y_train)
+    parameters = [{'max_depth':[None]}]
+    gs = GridSearchCV(estimator = clffit,
+                      param_grid = parameters,
+                      n_jobs = -1,
+                      scoring = 'accuracy',
+                      cv = 2)
+    gs.fit(X_train, y_train)
+    classifier = gs.best_estimator_
+    classifier.fit(X_train,y_train)
+    return classifier.predict(X_test), gs.best_params_
+
+
+Function call
+randomforestclassifier(X_train,X_test,y_train,y_test)
+
+Learn more here : https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
+Check out for more info : https://en.wikipedia.org/wiki/Random_forest

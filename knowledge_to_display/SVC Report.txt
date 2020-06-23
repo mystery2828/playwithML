@@ -151,3 +151,43 @@ Pass in the dataframe as the parameter for this function and it will remove the 
 dupli(dataframe)
 
 Check out the documentation : https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.duplicated.html
+
+
+
+
+• SVC function
+A support vector machine (SVM) is machine learning algorithm that analyzes data for classification and regression analysis.
+The objective of the support vector machine algorithm is to find a hyperplane in an N-dimensional space(N — the number of features) that distinctly classifies the data points.
+
+
+Importing the essential tools
+from sklearn.model_selection import GridSearchCV
+from sklearn.svm import SVC
+
+Function definition
+def svc(X_train,X_test,y_train,y_test):
+
+    classifier = SVC()
+    clffit = classifier.fit(X_train,y_train)
+    parameters = [{'gamma':['auto']}]
+    gs = GridSearchCV(estimator = clffit,
+                      param_grid = parameters,
+                      n_jobs = -1,
+                      scoring = 'accuracy',
+                      cv = 2)
+    gs.fit(X_train, y_train)
+    classifier = gs.best_estimator_
+    classifier.fit(X_train,y_train)
+    return classifier.predict(X_test), gs.best_params_
+
+
+Function call
+svc(X_train,X_test,y_train,y_test)
+
+Read more here : https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html
+For more info visit : https://en.wikipedia.org/wiki/Support_vector_machine
+
+
+
+
+

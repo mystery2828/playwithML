@@ -151,3 +151,40 @@ Pass in the dataframe as the parameter for this function and it will remove the 
 dupli(dataframe)
 
 Check out the documentation : https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.duplicated.html
+
+
+
+• Adaboost classifier function
+Ada-boost, like Random Forest Classifier is another ensemble classifier.
+Ada-boost classifier combines weak classifier algorithm to form strong classifier.
+A single algorithm may classify the objects poorly. But if we combine multiple classifiers with selection of training set at every iteration and assigning right amount of weight in final voting, 
+we can have good accuracy score for overall classifier.
+
+Importing the essential tools
+from sklearn.model_selection import GridSearchCV
+from sklearn.ensemble import AdaBoostClassifier
+
+
+Function definition
+def adaboostclassifier(X_train,X_test,y_train,y_test):
+
+    classifier = AdaBoostClassifier()
+    clffit = classifier.fit(X_train,y_train)
+    parameters = [{'base_estimator':[None]}]
+    gs = GridSearchCV(estimator = clffit,
+                      param_grid = parameters,
+                      n_jobs = -1,
+                      scoring = 'accuracy',
+                      cv = 2)
+    gs.fit(X_train, y_train)
+    classifier = gs.best_estimator_
+    classifier.fit(X_train,y_train)
+    return classifier.predict(X_test), gs.best_params_
+
+Function call
+adaboostclassifier(X_train,X_test,y_train,y_test)
+
+Check out the documentation here : https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.AdaBoostClassifier.html
+Learn more : https://en.wikipedia.org/wiki/AdaBoost
+
+

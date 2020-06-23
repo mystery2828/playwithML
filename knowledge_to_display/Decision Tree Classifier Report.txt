@@ -151,3 +151,43 @@ Pass in the dataframe as the parameter for this function and it will remove the 
 dupli(dataframe)
 
 Check out the documentation : https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.duplicated.html
+
+
+
+• Decision Tree Classifier function
+Decision Tree algorithm belongs to the family of supervised learning algorithms.
+Unlike other supervised learning algorithms, the decision tree algorithm can be used for solving regression and classification problems too.
+The decision criteria are different for classification and regression trees.
+Decision trees use multiple algorithms to decide to split a node into two or more sub-nodes.
+
+Importing the essential tools
+from sklearn.model_selection import GridSearchCV
+from sklearn.tree import DecisionTreeClassifier
+
+Function definition
+def decisiontreeclassifier(X_train,X_test,y_train,y_test):
+    classifier = DecisionTreeClassifier()
+    clffit = classifier.fit(X_train,y_train)
+    parameters = [{'splitter':['best']}]
+    gs = GridSearchCV(estimator = clffit,
+                      param_grid = parameters,
+                      n_jobs = -1,
+                      scoring = 'accuracy',
+                      cv = 2)
+    gs.fit(X_train, y_train)
+    classifier = gs.best_estimator_
+    classifier.fit(X_train,y_train)
+    return classifier.predict(X_test), gs.best_params_
+
+
+Function call
+decisiontreeclassifier(X_train,X_test,y_train,y_test)
+
+For more info visit : https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html
+Learn more : https://benalexkeen.com/decision-tree-classifier-in-python-using-scikit-learn/
+
+
+
+
+
+

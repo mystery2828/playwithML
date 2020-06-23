@@ -151,3 +151,40 @@ Pass in the dataframe as the parameter for this function and it will remove the 
 dupli(dataframe)
 
 Check out the documentation : https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.duplicated.html
+
+
+
+•Gradient Boosting classifier function
+Gradient boosting classifiers are a group of machine learning algorithms that combine many weak learning models together to create a strong predictive model.
+Decision trees are usually used when doing gradient boosting.
+It becomes very handy in Kaggle competitions and is heavily used in such scenarios.
+
+
+Importing the essential tools
+from sklearn.model_selection import GridSearchCV
+from sklearn.ensemble import GradientBoostingClassifier
+
+Function definition
+def gradientboostingclassifier(X_train,X_test,y_train,y_test):
+
+    classifier = GradientBoostingClassifier()
+    clffit = classifier.fit(X_train,y_train)
+    parameters = [{'max_features':[None]}]
+    gs = GridSearchCV(estimator = clffit,
+                      param_grid = parameters,
+                      n_jobs = -1,
+                      scoring = 'accuracy',
+                      cv = 2)
+    gs.fit(X_train, y_train)
+    classifier = gs.best_estimator_
+    classifier.fit(X_train,y_train)
+    return classifier.predict(X_test), gs.best_params_
+
+Function call
+gradientboostingclassifier(X_train,X_test,y_train,y_test)
+
+Check out the documentation here : https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingClassifier.html
+Learn more : https://en.wikipedia.org/wiki/Gradient_boosting
+
+
+
