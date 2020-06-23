@@ -147,7 +147,6 @@ def ridgeregressor(X_train,X_test,y_train,y_test):
     return regressor.predict(X_test), regressor.best_params_, regressor.score(X_test,y_test)
 
 Function call
-The X_train and X_test are passed in as the parameters while calling the function.
 ridgeregressor(X_train,X_test,y_train,y_test)
 
 For more info visit : https://en.wikipedia.org/wiki/Tikhonov_regularization
