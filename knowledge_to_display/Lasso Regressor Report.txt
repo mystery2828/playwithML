@@ -126,3 +126,32 @@ Pass in the dataframe as the parameter for this function and it will remove the 
 dupli(dataframe)
 
 Check out the documentation : https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.duplicated.html
+
+
+
+• Lasso Regression function
+Lasso regression analysis is a shrinkage and variable selection method for linear regression models.
+The goal of lasso regression is to obtain the subset of predictors that minimizes prediction error for a quantitative response variable.
+
+Importing the essential tools
+from sklearn.model_selection import GridSearchCV
+from sklearn.linear_model import Lasso
+
+Function definition
+def lassoregressor(X_train,X_test,y_train,y_test):
+    regressor=Lasso()
+    parameters=[{'random_state':[None]}]
+    regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=2)
+    regressor.fit(X_train,y_train)
+    return regressor.predict(X_test), regressor.best_params_, regressor.score(X_test,y_test)
+
+Function call
+lassoregressor(X_train,X_test,y_train,y_test)
+
+Read more here : https://www.analyticsvidhya.com/blog/2016/01/ridge-lasso-regression-python-complete-tutorial/
+For more info visit : https://youtu.be/9lRv01HDU0s
+Check out more : https://youtu.be/NGf0voTMlcs
+
+
+
+

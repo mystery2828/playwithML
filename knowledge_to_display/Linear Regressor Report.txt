@@ -126,3 +126,29 @@ Pass in the dataframe as the parameter for this function and it will remove the 
 dupli(dataframe)
 
 Check out the documentation : https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.duplicated.html
+
+
+
+• Linear Regression function
+Linear regression is a common statistical data analysis technique.
+It is used to determine the extent to which there is a linear relationship between a dependent variable and one or more independent variables.
+
+Importing the essential tools
+from sklearn.model_selection import GridSearchCV
+from sklearn.linear_model import LinearRegression
+
+Function definition
+def linearregressor(X_train,X_test,y_train,y_test):
+    regressor=LinearRegression()
+    parameters=[{'n_jobs':[None]}]
+    regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=2)
+    regressor.fit(X_train,y_train)
+    return regressor.predict(X_test), regressor.best_params_, regressor.score(X_test,y_test)
+
+Function call
+linearregressor(X_train,X_test,y_train,y_test)
+
+Learn more here : https://en.wikipedia.org/wiki/Linear_regression
+Check out for more info : https://youtu.be/zPG4NjIkCjc
+
+

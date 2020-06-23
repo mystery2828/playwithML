@@ -126,3 +126,31 @@ Pass in the dataframe as the parameter for this function and it will remove the 
 dupli(dataframe)
 
 Check out the documentation : https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.duplicated.html
+
+
+
+
+• Decision Tree regression function
+Decision Tree algorithm first sorts out all the values and keeps a threshold value, based on which it creates branching. This is continued until we arrive at the leaf nodes.
+Decision tree regressor builds regression models in the form of a tree structure.
+It breaks down a dataset into smaller and smaller subsets while at the same time an associated decision tree is incrementally developed.
+The final result is a tree with decision nodes and leaf nodes.
+
+Importing the essential tools
+from sklearn.model_selection import GridSearchCV
+from sklearn.tree import DecisionTreeRegressor
+
+Function definition
+def decisiontreeregressor(X_train,X_test,y_train,y_test):
+    regressor = DecisionTreeRegressor()
+    parameters=[{'max_depth':[None]}]
+    regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=2)
+    regressor.fit(X,y)
+    return regressor.predict(X_test), regressor.best_params_, regressor.score(X_test,y_test)
+
+Function call
+decisiontreeregressor(X_train,X_test,y_train,y_test)
+
+Check out the documentation : https://scikit-learn.org/stable/auto_examples/tree/plot_tree_regression.html
+Learn more : https://en.wikipedia.org/wiki/Decision_tree_learning
+For more info check : https://youtu.be/g9c66TUylZ4
