@@ -126,3 +126,30 @@ Pass in the dataframe as the parameter for this function and it will remove the 
 dupli(dataframe)
 
 Check out the documentation : https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.duplicated.html
+
+
+
+
+• Gradient Boosting regression function
+Gradient boosting is one of the most powerful techniques for building predictive models.
+Boosting is a method of converting weak learners into strong learners.
+It becomes very handy in Kaggle competitions and is heavily used in such scenarios.
+
+
+Importing the essential tools
+from sklearn.model_selection import GridSearchCV
+from sklearn.ensemble import GradientBoostingRegressor
+
+Function definition
+def gradientboostingregressor(X_train,X_test,y_train,y_test):
+        regressor = GradientBoostingRegressor()
+        parameters ={'max_features':[None]}
+        regressor = GridSearchCV(regressor,parameters,scoring='r2', cv=2)
+        regressor.fit(X_train,y_train)
+        return regressor.predict(X_test), regressor.best_params_, regressor.score(X_test,y_test)
+
+Function call
+gradientboostingregressor(X_train,X_test,y_train,y_test)
+
+Check out the documentation here : https://scikit-learn.org/stable/auto_examples/ensemble/plot_gradient_boosting_regression.html
+Learn more : https://en.wikipedia.org/wiki/Gradient_boosting

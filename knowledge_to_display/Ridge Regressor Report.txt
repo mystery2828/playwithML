@@ -2,7 +2,7 @@
 				LEARNING GUIDE TO YOUR MODEL
 
 
-•fill_na function
+â€¢fill_na function
 Removing or filling the NaN and undefined values in the dataset is an important step in Exploratory Data Analysis.
 You can either remove the particular row or column containing NaN values or else fill those values with the mean,median etc. depending on the usecase.
 
@@ -32,7 +32,7 @@ Check out the documentation here : https://pandas.pydata.org/pandas-docs/stable/
 
 
 
-•scale function
+â€¢scale function
 Your dataset may contain a wide variety of values. Inorder to process your data further it is essential to scale down your data in the desired range based on the usecase. 
 This function helps you to do so.
 
@@ -57,7 +57,7 @@ For more info visit : https://benalexkeen.com/feature-scaling-with-scikit-learn/
 
 
 
-•splitdata function
+â€¢splitdata function
 Splits your dataset into train data for training the model and test data. This functionality is provided by the scikit-learn library.
 
 Importing the essential tools
@@ -81,7 +81,7 @@ Check out more : https://scikit-learn.org/stable/modules/generated/sklearn.model
 
 
 
-•encode function
+â€¢encode function
 This function converts the categorical features in your dataset and convert it into numerical values.
 One Hot encoding produces three columns and the presence of a class is represented in binary format. The three classes are separated out to three different features.
 Label encoding or Ordinal encoding gives numerical aliases to the classes. Numerical labels are always between 1 and the number of classes.
@@ -110,7 +110,7 @@ Learn more : https://machinelearningmastery.com/how-to-prepare-categorical-data-
 
 
 
-•dupli function
+â€¢dupli function
 It detects the duplicate rows in your dataset and removes them. The different ways of handling the datasets using this function can be found out using the links provided. 
 Importing the essential tools
 It is actually imported from pandas and all you need to import is pandas for this function
@@ -126,3 +126,30 @@ Pass in the dataframe as the parameter for this function and it will remove the 
 dupli(dataframe)
 
 Check out the documentation : https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.duplicated.html
+
+
+
+â€¢ Ridge Regression function
+Ridge Regression is a technique for analyzing multiple regression data that suffer from multicollinearity.
+Ridge regression has an additional factor called lambda (Î») which is called the penalty factor which is added while estimating beta coefficients.
+This factor penalizes high value of beta which shrinks beta coefficients thereby reducing the mean squared error and predicted error.
+
+Importing the essential tools
+from sklearn.model_selection import GridSearchCV
+from sklearn.linear_model import Ridge
+
+Function definition
+def ridgeregressor(X_train,X_test,y_train,y_test):
+    regressor=Ridge()
+    parameters=[{'random_state':[None]}]
+    regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=2)
+    regressor.fit(X_train,y_train)
+    return regressor.predict(X_test), regressor.best_params_, regressor.score(X_test,y_test)
+
+Function call
+ridgeregressor(X_train,X_test,y_train,y_test)
+
+For more info visit : https://en.wikipedia.org/wiki/Tikhonov_regularization
+Learn more : https://youtu.be/Q81RR3yKn30
+
+
