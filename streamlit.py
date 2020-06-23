@@ -28,14 +28,15 @@ from sklearn.linear_model import LinearRegression, Ridge, Lasso, SGDClassifier
 
   
 
-html_temp = """
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <div style="background-color:#F1380C;font-family:Sans-serif;padding:10px">
-    <h2 style="color:white;text-align:center;">PLAY WITH ML <i class="material-icons">&#xe30a;</i></h2>
-    </div>
-    """
-st.markdown(html_temp,unsafe_allow_html=True)
-st.subheader("Made with {} by Akash, Ashwin, Apeksha".format(emoji.emojize(":heart:")))
+# html_temp = """
+#     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+#     <div style="background-color:#F1380C;font-family:Sans-serif;padding:10px">
+#     <h2 style="color:white;text-align:center;">PLAY WITH ML <i class="material-icons">&#xe30a;</i></h2>
+#     </div>
+#     """
+# st.markdown(html_temp,unsafe_allow_html=True)
+st.title("PLAY WITH ML {}".format(emoji.emojize(":heart:")))
+st.subheader("Made with {} by Akash, Ashwin, Apeksha".format(emoji.emojize(":smiley:")))
 st.subheader("Upload a dataset {}".format(emoji.emojize(":cloud:")))
 file_name = st.file_uploader("Please upload a small dataset(.csv or .xlsx) as the app is still in development stage :)", type=["csv","xlsx"])
 st.text('*Try to avoid columns with nan values for categorical features')
