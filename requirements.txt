@@ -60,6 +60,6 @@ flasgger==0.9.4
 watchdog==0.10.2
 wcwidth==0.1.7
 webencodings==0.5.1
-Werkzeug==0.15.2
+Werkzeug==0.15.3
 widgetsnbextension==3.5.1
 xlrd==1.2.0
