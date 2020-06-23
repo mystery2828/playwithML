@@ -12,3 +12,5 @@ pandas>=0.19
 flasgger==0.9.4
 streamlit
 emoji==0.5.4
+imbalanced-learn==0.6.2
+imblearn==0.0
