@@ -289,7 +289,7 @@ if file_name is not None and option != "Select one":
             st.code(classifier_code, language='python')
             file.close()
             st.subheader("Report")
-            know = open('knowledge_to_display/'+classifier_choice+' Report.txt','r')
+            know = open('knowledge_to_display/'+classifier_choice+' Report.txt','rb')
             classifier_report = know.read()
             st.code(classifier_report)
             know.close()
@@ -404,7 +404,7 @@ if file_name is not None and option != "Select one":
             file.close()
             
             st.subheader("Report")
-            know = open('knowledge_to_display/'+regressor_choice+' Report.txt','r')
+            know = open('knowledge_to_display/'+regressor_choice+' Report.txt','rb')
             regressor_report = know.read()
             st.code(regressor_report)
             know.close()
