@@ -139,11 +139,10 @@ c = ['Random Forest Classifier','Decision Tree Classifier','SVC',
                            'SGD Classifier','Gradient Boosting Classifier',
                            'Adaboost Classifier']
 
-r  = ['Linear Regressor','Ridge Regressor','Lasso Regressor',
-                   'DecisionTree Regressor','Gradient Boosting Regressor']
+r  = ['Linear Regressor']
 
 for ele in r:
     
-    file = open('knowledge_to_display/'+ele+' Report.txt', 'a')
-    file.write(a)
-    file.close()
+    f = open('knowledge_to_display/'+ele+' Report.txt', 'rb')
+    text = f.read().decode(errors='replace')
+    print(text)
