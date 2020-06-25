@@ -66,6 +66,12 @@ pip install -r requirements.txt
 ```bash
 streamlit run app.py
 ```
+[![](https://imgur.com/MtvTsL1.png)](http://playwithml.herokuapp.com/)
+[![](https://imgur.com/x3ct0ou.png)](http://playwithml.herokuapp.com/)
+[![](https://imgur.com/LkxcPJK.png)](http://playwithml.herokuapp.com/)
+[![](https://imgur.com/CiVrqNu.png)](http://playwithml.herokuapp.com/)
+[![](https://imgur.com/gzFq0GJ.png)](http://playwithml.herokuapp.com/)
+[![](https://imgur.com/CiVrqNu.png)](http://playwithml.herokuapp.com/)
 
 ## Deployement on Heroku
 ```bash
