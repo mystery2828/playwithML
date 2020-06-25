@@ -111,10 +111,33 @@ if file_name is not None and option != "Select one":
     num_rec = dataframe.shape[0]
     st.subheader("Glimpse of dataset {}".format(emoji.emojize(":blush:")))
     st.dataframe(dataframe.head(10))     
+    all_columns_names = dataframe.columns.tolist()
+    plot_type = st.selectbox("Select Type of Plot",["area","bar","line","hist"])
+    selected_columns_names = st.multiselect("Select Columns To Plot",all_columns_names)
+    
+    # Plot By Streamlit
+    if plot_type == 'area':
+        req_data = dataframe[selected_columns_names]
+        st.area_chart(req_data)
+    
+    elif plot_type == 'bar':
+        req_data = dataframe[selected_columns_names]
+        st.bar_chart(req_data)
+    
+    elif plot_type == 'line':
+        req_data = dataframe[selected_columns_names]
+        st.line_chart(req_data)
+    
+    # Custom Plot 
+    elif plot_type:
+        cust_plot= dataframe[selected_columns_names].plot(kind=plot_type)
+        st.write(cust_plot)
+        st.pyplot()
+
     activities = ["Select one","CLASSIFICATION","REGRESSION"]	
     st.subheader("Select the type of model {}".format(emoji.emojize(":smiley:")))
     choice = st.selectbox('',activities)
-    
+
     
     
     if choice == 'CLASSIFICATION':
