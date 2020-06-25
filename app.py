@@ -291,7 +291,7 @@ if file_name is not None and option != "Select one":
             st.subheader("Report")
             know = open('knowledge_to_display/'+classifier_choice+' Report.txt','r')
             classifier_report = know.read()
-            st.text(classifier_report)
+            st.code(classifier_report)
             know.close()
            
             
