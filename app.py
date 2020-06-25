@@ -28,7 +28,6 @@ from sklearn.linear_model import LinearRegression, Ridge, Lasso, SGDClassifier
 
 
 
-
 html_temp = """
     <head>
     <style>
@@ -41,13 +40,13 @@ html_temp = """
     </head>
     <div style="background-color:blue;padding:10px">
     <h2 class="heading" style="color:white;text-align:center;font-family:"Times New Roman", Times, serif; font-size:large;">PLAY WITH ML <i class="material-icons" style="font-size:36px;">computer</i></h2>
-    <p style="text-align:right;">Find us on LinkedIn <a style="color:white;" target="_blank" href='https://www.linkedin.com/in/akash-c-3a0468148/'>Akash</a>, <a style="color:white;" target="_blank" href='https://www.linkedin.com/in/ashwinsharmap'>Ashwin</a></p></div>
+    <p style="text-align:right;color:tomato;">Find us on LinkedIn <a style="color:white;" target="_blank" href='https://www.linkedin.com/in/akash-c-3a0468148/'>Akash</a>, <a style="color:white;" target="_blank" href='https://www.linkedin.com/in/ashwinsharmap'>Ashwin</a></p></div>
     """
 st.markdown(html_temp,unsafe_allow_html=True)
 # st.subheader("Made with {} by Akash and Ashwin".format(emoji.emojize(":heart:")))
 st.subheader("Upload a dataset {}".format(emoji.emojize(":cloud:")))
 file_name = st.file_uploader("Please upload a small dataset(.csv or .xlsx) as the app is still in development stage :)", type=["csv","xlsx"])
-st.text('*Try to avoid columns with nan values for categorical features')
+st.text('*Try to avoid columns with nan values for categorical features \n*Please remove columns with data such as "DATE","NAME","ID" for better accuracy\n*We currently dont process Time series data.')
 
 option = st.selectbox("PLease select the format of your file",
     ["Select one",
@@ -289,7 +288,11 @@ if file_name is not None and option != "Select one":
             classifier_code = file.read()
             st.code(classifier_code, language='python')
             file.close()
-            
+            st.subheader("Report")
+            know = open('knowledge_to_display/'+classifier_choice+' Report.txt')
+            classifier_report = know.read()
+            st.text(classifier_report)
+            know.close()
             
             
     elif choice == 'REGRESSION':
@@ -315,6 +318,8 @@ if file_name is not None and option != "Select one":
             
             scalereturn = scale(X_train,X_test)
             X_train,X_test = scalereturn[0],scalereturn[1]
+            
+            st.write("Give us some {} to build your project".format(emoji.emojize(":watch:")))
             
             #Linear Regression
             def linearregressor(X_train,X_test,y_train,y_test):
@@ -397,3 +402,13 @@ if file_name is not None and option != "Select one":
             regressor_code = file.read()
             st.code(regressor_code, language='python')
             file.close()
+            
+            # st.subheader("Report")
+            # know = open('knowledge_to_display/'+regressor_choice+' Report.txt')
+            # regressor_report = know.read()
+            # st.code(regressor_report)
+            # know.close()
+            a = '''
+             <a href="https://drive.google.com/u/0/uc?id=1qXnQtuLkeXtHk-OjIZX1nXmbVa5f0jLN&export=download" download="text.txt">Download Report</a>
+            '''
+            st.markdown(a, unsafe_allow_html=True)
