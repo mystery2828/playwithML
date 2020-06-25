@@ -97,7 +97,7 @@ If you find a bug (the website couldn't handle the query and / or gave undesired
 ## Team
 [![Akash C](https://avatars1.githubusercontent.com/u/40836377?s=144&u=884f530d1deeb1897ccb6f83cea9e84cc3de4b28&v=4)](https://www.linkedin.com/in/akash-c-3a0468148/) |
 -|
-[Akash C](https://www.linkedin.com/in/akash-c-3a0468148/)
+[Akash C](https://www.linkedin.com/in/akash-c-3a0468148/) |
 [![Ashwin Sharma](https://avatars0.githubusercontent.com/u/51113630?s=144&u=a16f967611c067eb66f36bc1c070fe8fbe1d5341&v=4&s=144)](https://www.linkedin.com/in/ashwinsharmap/) |
 -|
 [Ashwin Sharma](https://www.linkedin.com/in/ashwinsharmap/)
