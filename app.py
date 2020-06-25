@@ -293,7 +293,7 @@ if file_name is not None and option != "Select one":
             classifier_report = know.read()
             st.text(classifier_report)
             know.close()
-            
+           
             
     elif choice == 'REGRESSION':
         
@@ -403,12 +403,9 @@ if file_name is not None and option != "Select one":
             st.code(regressor_code, language='python')
             file.close()
             
-            # st.subheader("Report")
-            # know = open('knowledge_to_display/'+regressor_choice+' Report.txt')
-            # regressor_report = know.read()
-            # st.code(regressor_report)
-            # know.close()
-            a = '''
-             <a href="https://drive.google.com/u/0/uc?id=1qXnQtuLkeXtHk-OjIZX1nXmbVa5f0jLN&export=download" download="text.txt">Download Report</a>
-            '''
-            st.markdown(a, unsafe_allow_html=True)
+            st.subheader("Report")
+            know = open('knowledge_to_display/'+regressor_choice+' Report.txt')
+            regressor_report = know.read()
+            st.code(regressor_report)
+            know.close()
+            
