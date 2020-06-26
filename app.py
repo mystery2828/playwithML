@@ -482,7 +482,6 @@ if file_name is not None and option != "Select one":
             time.sleep(1.5)
             st.write("\n")
             st.success("r2/variance for {} is: {}".format(regressor_choice, regressor_output[2]))
-            st.success("Residual sum of squares is: {}".format(np.mean((regressor_output[0] - y_test) ** 2)))
             st.success("Mean Squared Error for {} is: {}".format(regressor_choice, mean_squared_error(y_test, regressor_output[0])))
             st.write('Selected parameters are: ',regressor_output[1])
             
