@@ -15,7 +15,7 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from imblearn.over_sampling import SMOTE,RandomOverSampler
 from sklearn.ensemble import GradientBoostingRegressor
 
-file_name='winequality.csv'
+file_name='datasets/winequality.csv'
 dataframe=pd.read_csv(file_name)
 num_rec = dataframe.shape[0]
 
@@ -71,16 +71,6 @@ def oversample(X,y):
     X,y = smote.fit_resample(X,y)
     return X,y
 
-## Function for labelencoding
-def encode(dataframe):
-    
-    for col in dataframe.columns:
-        if dataframe[col].dtype.name == 'object':
-            le = LabelEncoder()
-            dataframe[col] = le.fit_transform(dataframe[col])
-    return dataframe
-
-
 #Linear Regression
 def linearregressor(X_train,X_test,y_train,y_test):
     regressor=LinearRegression()
@@ -115,7 +105,7 @@ def lassoregressor(X_train,X_test,y_train,y_test):
     return regressor.predict(X_test)
 
 #Decision Tree Regression
-def decisiontreeregressor(X,y):
+def decisiontreeregressor(X_train,X_test,y_train,y_test):
     regressor = DecisionTreeRegressor()
     parameters=[{'max_depth':[None]}]
     regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=10)
@@ -175,7 +165,7 @@ for i in range(5):
         regressor_output = lassoregressor(X_train,X_test,y_train,y_test)
     
     elif selected_option == 'decisiontreeregressor':
-        regressor_output = decisiontreeregressor(X,y)
+        regressor_output = decisiontreeregressor(X_train,X_test,y_train,y_test)
         
     elif selected_option == 'gradientboostingregressor':
         regressor_output = gradientboostingregressor(X_train,X_test,y_train,y_test)
