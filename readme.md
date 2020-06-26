@@ -5,9 +5,8 @@
   * [Overview](#overview)
   * [Installation](#installation)
   * [Directory Tree](#directory-tree)
-  * [Use](#use)
+  * [Usage](#usage)
   * [Deployement on Heroku](#deployement-on-heroku)
-  * [To Do](#to-do)
   * [Bug / Feature Request](#bug---feature-request)
   * [Technologies Used](#technologies-used)
   * [Team](#team)
@@ -62,7 +61,7 @@ pip install -r requirements.txt
 │       winequality.csv
 ```
 
-## Use
+## Usage
 ```bash
 streamlit run app.py
 ```
