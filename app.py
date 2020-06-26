@@ -17,12 +17,12 @@ import time
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.preprocessing import StandardScaler, LabelEncoder, RobustScaler, StandardScaler
+from sklearn.preprocessing import StandardScaler, LabelEncoder
 from imblearn.over_sampling import SMOTE, RandomOverSampler
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import GradientBoostingClassifier, AdaBoostClassifier, RandomForestClassifier, GradientBoostingRegressor
-from sklearn.metrics import precision_score, recall_score, accuracy_score, f1_score, mean_squared_error, plot_confusion_matrix
+from sklearn.metrics import precision_score, recall_score, accuracy_score, f1_score, mean_squared_error
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.linear_model import LinearRegression, Ridge, Lasso, SGDClassifier
 
@@ -147,7 +147,38 @@ if file_name is not None and option != "Select one":
                            'Adaboost Classifier']
         st.subheader("Select a Classification model to train your Dataset on {}".format(emoji.emojize(":eyes:")))
         classifier_choice = st.selectbox("",classification_activities)
+        st.subheader("Select the hyper-parameter {}".format(emoji.emojize(":smiley:")))
+        if classifier_choice == 'Random Forest Classifier':
+            max_depth= st.slider(label='max_depth', min_value=0, max_value=16, step=1)
+            n_estimators= st.slider(label='n_estimators', min_value=100, max_value=800, step=50)
+            min_samples_split= st.slider(label='min_samples_split', min_value=0, max_value=16, step=1)
+        
+        elif classifier_choice == 'Decision Tree Classifier':
+            max_depth= st.slider(label='max_depth', min_value=0, max_value=16, step=1)
+            min_samples_split= st.slider(label='min_samples_split', min_value=0, max_value=16, step=1)
+            criterion = st.selectbox('criterion',['gini','entropy'])
+        
+        elif classifier_choice == 'SVC':
+            c= st.slider(label='C', min_value=0, max_value=16, step=1)
+            degree= st.slider(label='degree', min_value=1, max_value=10, step=1)
+            kernel = st.selectbox('kernel',['linear', 'poly', 'rbf', 'sigmoid'])
 
+        elif classifier_choice == 'SGD Classifier':
+            loss = st.selectbox('loss',['hinge', 'log', 'modified_huber', 'squared_hinge'])
+            penalty = st.selectbox('penalty',['l1','l2','elasticnet'])
+            alpha= st.text_input(label='alpha(enter a value between 0.0001 to 0.001)',value='0.0001')
+            alpha = float(alpha)
+            
+        elif classifier_choice == 'Gradient Boosting Classifier':
+            n_estimators= st.slider(label='n_estimators', min_value=100, max_value=800, step=50)
+            learning_rate= st.slider(label='learning_rate', min_value=0.1, max_value=1.0, step=0.05)
+            criterion= st.selectbox('criterion', ['friedman_mse', 'mse', 'mae'])
+            
+        elif classifier_choice == 'Adaboost Classifier':
+            n_estimators= st.slider(label='n_estimators', min_value=50, max_value=800, step=50)
+            learning_rate= st.slider(label='learning_rate', min_value=0.5, max_value=3.0, step=0.05)
+            
+            
         submit = st.button('TRAIN')
         
         if submit:
@@ -170,11 +201,11 @@ if file_name is not None and option != "Select one":
             st.write("Give us some {} to build your project".format(emoji.emojize(":watch:")))
             
             ## Function for RandomForestClassifier
-            def randomforestclassifier(X_train,X_test,y_train,y_test):
+            def randomforestclassifier(X_train,X_test,y_train,y_test,max_depth=None,n_estimators=100,min_samples_split=2):
                 
                 classifier = RandomForestClassifier()
                 clffit = classifier.fit(X_train,y_train)
-                parameters = [{'max_depth':[None]}]
+                parameters = [{'max_depth':[max_depth],'n_estimators':[n_estimators],'min_samples_split':[min_samples_split]}]
                 gs = GridSearchCV(estimator = clffit,
                                   param_grid = parameters,
                                   n_jobs = -1,
@@ -187,11 +218,11 @@ if file_name is not None and option != "Select one":
                 
             
             ## Function for DecisionTreeCLassifier
-            def decisiontreeclassifier(X_train,X_test,y_train,y_test):
+            def decisiontreeclassifier(X_train,X_test,y_train,y_test,max_depth=None,min_samples_split=2,criterion='gini'):
                 
                 classifier = DecisionTreeClassifier()
                 clffit = classifier.fit(X_train,y_train)
-                parameters = [{'splitter':['best']}]
+                parameters = [{'max_depth':[max_depth],'min_samples_split':[min_samples_split],'criterion':[criterion]}]
                 gs = GridSearchCV(estimator = clffit,
                                   param_grid = parameters,
                                   n_jobs = -1,
@@ -204,11 +235,11 @@ if file_name is not None and option != "Select one":
             
             
             ## Function for SVC
-            def svc(X_train,X_test,y_train,y_test):
+            def svc(X_train,X_test,y_train,y_test,c=1.0,degree=3,kernel='rbf'):
                 
                 classifier = SVC()
                 clffit = classifier.fit(X_train,y_train)
-                parameters = [{'gamma':['auto']}]
+                parameters = [{'C':[c],'degree':[degree],'kernel':[kernel]}]
                 gs = GridSearchCV(estimator = clffit,
                                   param_grid = parameters,
                                   n_jobs = -1,
@@ -221,11 +252,11 @@ if file_name is not None and option != "Select one":
             
             
             ## Function for sgdclassifier
-            def sgdclassifier(X_train,X_test,y_train,y_test):
+            def sgdclassifier(X_train,X_test,y_train,y_test,loss='hinge',penalty='l2',alpha=0.0001):
                 
                 classifier = SGDClassifier()
                 clffit = classifier.fit(X_train,y_train)
-                parameters = [{'penalty':['l2']}]
+                parameters = [{'penalty':['l2'],'loss':[loss],'alpha':[alpha]}]
                 gs = GridSearchCV(estimator = clffit,
                                   param_grid = parameters,
                                   n_jobs = -1,
@@ -238,11 +269,11 @@ if file_name is not None and option != "Select one":
             
             
             ## Function for gradientboostingclassifier
-            def gradientboostingclassifier(X_train,X_test,y_train,y_test):
+            def gradientboostingclassifier(X_train,X_test,y_train,y_test,n_estimators=100,learning_rate=0.1,criterion='friedman_mse'):
                 
                 classifier = GradientBoostingClassifier()
                 clffit = classifier.fit(X_train,y_train)
-                parameters = [{'max_features':[None]}]
+                parameters = [{'n_estimators':[n_estimators],'learning_rate':[learning_rate],'criterion':[criterion]}]
                 gs = GridSearchCV(estimator = clffit,
                                   param_grid = parameters,
                                   n_jobs = -1,
@@ -255,11 +286,11 @@ if file_name is not None and option != "Select one":
             
             
             ## Function for adaboost
-            def adaboostclassifier(X_train,X_test,y_train,y_test):
+            def adaboostclassifier(X_train,X_test,y_train,y_test,n_estimators=50,learning_rate=1):
                 
                 classifier = AdaBoostClassifier()
                 clffit = classifier.fit(X_train,y_train)
-                parameters = [{'base_estimator':[None]}]
+                parameters = [{'n_estimators':[n_estimators],'learning_rate':[learning_rate]}]
                 gs = GridSearchCV(estimator = clffit,
                                   param_grid = parameters,
                                   n_jobs = -1,
@@ -274,19 +305,22 @@ if file_name is not None and option != "Select one":
             ## Model functions
             
             if classifier_choice == 'Random Forest Classifier':
-                classifier_output = randomforestclassifier(X_train,X_test,y_train,y_test)
+                # max_depth= st.slider(label='max_depth', min_value=0.0, max_value=16.0, step=0.5)
+                # n_estimators= st.slider(label='n_estimators', min_value=0.0, max_value=16.0, step=0.5)
+                # min_samples_split= st.slider(label='min_samples_split', min_value=0.0, max_value=16.0, step=0.5)
+                classifier_output = randomforestclassifier(X_train,X_test,y_train,y_test,max_depth,n_estimators,min_samples_split)
                 
             elif classifier_choice == 'Decision Tree Classifier':
-                classifier_output = decisiontreeclassifier(X_train,X_test,y_train,y_test)
+                classifier_output = decisiontreeclassifier(X_train,X_test,y_train,y_test,max_depth,min_samples_split,criterion)
             
             elif classifier_choice == 'SVC':
-                classifier_output = svc(X_train,X_test,y_train,y_test)
+                classifier_output = svc(X_train,X_test,y_train,y_test,c,degree,kernel)
             
             elif classifier_choice == 'SGD Classifier':
-                classifier_output = sgdclassifier(X_train,X_test,y_train,y_test)
+                classifier_output = sgdclassifier(X_train,X_test,y_train,y_test,loss,penalty,alpha)
             
             elif classifier_choice == 'Gradient Boosting Classifier':
-                classifier_output = gradientboostingclassifier(X_train,X_test,y_train,y_test)
+                classifier_output = gradientboostingclassifier(X_train,X_test,y_train,y_test,n_estimators,learning_rate,criterion)
             
             elif classifier_choice == 'Adaboost Classifier':
                 classifier_output = adaboostclassifier(X_train,X_test,y_train,y_test)
@@ -306,17 +340,20 @@ if file_name is not None and option != "Select one":
             st.success('Recall score of {} is: {}'.format(classifier_choice,recall_score(y_test,classifier_output[0],average='weighted')))
             st.success('Precision score of {} is: {}'.format(classifier_choice,precision_score(y_test,classifier_output[0],average='weighted')))
             st.write('Selected parameters are: ',classifier_output[1])
-            st.subheader("Code")
+            
+            st.subheader("Code (adjust hyperparameters manually)")
             file = open('codes_to_display/'+classifier_choice+' Code.txt','r')
             classifier_code = file.read()
             st.code(classifier_code, language='python')
             file.close()
+            
             st.subheader("Report")
             know = open('knowledge_to_display/'+classifier_choice+' Report.txt','rb')
             classifier_report = know.read().decode(errors='replace')
             st.code(classifier_report)
             know.close()
-           
+            
+            
             
     elif choice == 'REGRESSION':
         
@@ -324,7 +361,35 @@ if file_name is not None and option != "Select one":
                    'DecisionTree Regressor','Gradient Boosting Regressor']
         st.subheader("Select a Regression model to train your Dataset on {}".format(emoji.emojize(":eyes:")))
         regressor_choice = st.selectbox("",regression_activities)
-    
+        st.subheader("Select the hyper-parameter {}".format(emoji.emojize(":smiley:")))
+        
+        if regressor_choice=='Linear Regressor':
+            normalize=st.selectbox('normalize',['True','False'])
+            
+        elif regressor_choice=='Ridge Regressor':
+            max_iter=st.slider(label='max_iter',min_value=100,max_value=1500,step=100)
+            solver=st.selectbox('solver',['auto','svd','cholesky','lsqr','sparse_cg','sag','saga'])
+            alpha= st.text_input(label='alpha(enter a value between 0.01 to 10.0)',value='1')
+            alpha = float(alpha)
+            
+        elif regressor_choice=='Lasso Regressor':
+            max_iter=st.slider(label='max_iter',min_value=100,max_value=1500,step=100)
+            selection=st.selectbox('selection',['cyclic','random'])
+            alpha= st.text_input(label='alpha(enter a value between 0.01 to 10.0)',value='1')
+            alpha=float(alpha)
+            
+        elif regressor_choice=='DecisionTree Regressor':
+            min_samples_split= st.slider(label='min_samples_split', min_value=0, max_value=16, step=1)
+            max_depth= st.slider(label='max_depth', min_value=0, max_value=16, step=1)
+            criterion=st.selectbox('criterion',['mse','friedman_mse','mae'])
+            
+        elif regressor_choice=='Gradient Boosting Regressor':
+            loss=st.selectbox('loss',['ls','lad','huber','quantile'])
+            n_estimators=st.slider(label='n_estimators',min_value=100,max_value=800,step=50)
+            learning_rate= st.text_input(label='learning_rate(enter a value between 0.001 to 1.0)',value='0.1')
+            alpha = float(alpha)
+
+
         submit = st.button('TRAIN')
         
         if submit:
@@ -345,45 +410,45 @@ if file_name is not None and option != "Select one":
             st.write("Give us some {} to build your project".format(emoji.emojize(":watch:")))
             
             #Linear Regression
-            def linearregressor(X_train,X_test,y_train,y_test):
+            def linearregressor(X_train,X_test,y_train,y_test,normalize=False):
                 regressor=LinearRegression()
-                parameters=[{'n_jobs':[None]}]
+                parameters=[{'normalize':[normalize]}]
                 regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=2)
                 regressor.fit(X_train,y_train)
                 
                 return regressor.predict(X_test), regressor.best_params_, regressor.score(X_test,y_test)
             
             #Ridge Regression
-            def ridgeregressor(X_train,X_test,y_train,y_test):
+            def ridgeregressor(X_train,X_test,y_train,y_test,max_iter=100,solver='auto',alpha=1.0):
                 regressor=Ridge()
-                parameters=[{'random_state':[None]}]
+                parameters=[{'max_iter':[max_iter],'solver':[solver],'alpha':[alpha]}]
                 regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=2)
                 regressor.fit(X_train,y_train)
                 
                 return regressor.predict(X_test), regressor.best_params_, regressor.score(X_test,y_test)
                 
             #Lasso Regression
-            def lassoregressor(X_train,X_test,y_train,y_test):
+            def lassoregressor(X_train,X_test,y_train,y_test,max_iter=100,selection='cyclic',alpha=1.0):
                 regressor=Lasso()
-                parameters=[{'random_state':[None]}]
+                parameters=[{'max_iter':[max_iter],'selection':[selection],'alpha':[alpha]}]
                 regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=2)
                 regressor.fit(X_train,y_train)
                 
                 return regressor.predict(X_test), regressor.best_params_, regressor.score(X_test,y_test)
             
             #Decision Tree Regression
-            def decisiontreeregressor(X_train,X_test,y_train,y_test):
+            def decisiontreeregressor(X_train,X_test,y_train,y_test,min_samples_split=2,max_depth=6,criterion='friedman_mse'):
                 regressor = DecisionTreeRegressor()
-                parameters=[{'max_depth':[None]}]
+                parameters=[{'max_depth':[max_depth],'min_samples_split':[min_samples_split],'criterion':[criterion]}]
                 regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=2)
                 regressor.fit(X,y)
 
                 return regressor.predict(X_test), regressor.best_params_, regressor.score(X_test,y_test)
             
             #Gradient Boosting Regression
-            def gradientboostingregressor(X_train,X_test,y_train,y_test):
+            def gradientboostingregressor(X_train,X_test,y_train,y_test,loss='ls',n_estimators=100,learning_rate=0.1):
                 regressor = GradientBoostingRegressor()
-                parameters ={'max_features':[None]}
+                parameters ={'n_estimators':[n_estimators],'loss':[loss],'learning_rate':[learning_rate]}
                 regressor = GridSearchCV(regressor,parameters,scoring='r2', cv=2)
                 regressor.fit(X_train,y_train)
 
@@ -393,21 +458,21 @@ if file_name is not None and option != "Select one":
             ## Model functions
             
             if regressor_choice == 'Linear Regressor':
-                regressor_output = linearregressor(X_train,X_test,y_train,y_test)
+                regressor_output = linearregressor(X_train,X_test,y_train,y_test,normalize)
                 
             elif regressor_choice == 'Ridge Regressor':
-                regressor_output = ridgeregressor(X_train,X_test,y_train,y_test)
+                regressor_output = ridgeregressor(X_train,X_test,y_train,y_test,max_iter,solver,alpha)
             
             elif regressor_choice == 'Lasso Regressor':
-                regressor_output = lassoregressor(X_train,X_test,y_train,y_test)
+                regressor_output = lassoregressor(X_train,X_test,y_train,y_test,max_iter,selection,alpha)
             
             elif regressor_choice == 'DecisionTree Regressor':
-                regressor_output = decisiontreeregressor(X_train,X_test,y_train,y_test)
+                regressor_output = decisiontreeregressor(X_train,X_test,y_train,y_test,min_samples_split,max_depth,criterion)
             
             elif regressor_choice == 'Gradient Boosting Regressor':
-                regressor_output = gradientboostingregressor(X_train,X_test,y_train,y_test)
+                regressor_output = gradientboostingregressor(X_train,X_test,y_train,y_test,loss,n_estimators,learning_rate)
 
-             ### Time for printingout the result
+             ### Time for printing out the result
                 
             st.write('My system caught on {} training your model to get the output for you {}'.format(emoji.emojize(':fire:'), emoji.emojize(':satisfied:')))
             time.sleep(1.5)
@@ -420,7 +485,8 @@ if file_name is not None and option != "Select one":
             st.success("Residual sum of squares is: {}".format(np.mean((regressor_output[0] - y_test) ** 2)))
             st.success("Mean Squared Error for {} is: {}".format(regressor_choice, mean_squared_error(y_test, regressor_output[0])))
             st.write('Selected parameters are: ',regressor_output[1])
-            st.subheader("Code")
+            
+            st.subheader("Code (adjust hyperparameters manually)")
             file = open('codes_to_display/'+regressor_choice+' Code.txt','r')
             regressor_code = file.read()
             st.code(regressor_code, language='python')
@@ -431,4 +497,3 @@ if file_name is not None and option != "Select one":
             regressor_report = know.read().decode(errors='replace')
             st.code(regressor_report)
             know.close()
-            
