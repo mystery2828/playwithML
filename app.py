@@ -39,7 +39,7 @@ html_temp = """
     </head>
     <div style="background-color:blue;padding:10px">
     <h2 class="heading" style="color:white;text-align:center;font-family:"Times New Roman", Times, serif; font-size:large;">PLAY WITH ML <i class="material-icons" style="font-size:36px;">computer</i></h2>
-    <p style="text-align:right;color:tomato;">Find us on LinkedIn <a style="color:white;" target="_blank" href='https://www.linkedin.com/in/akash-c-3a0468148/'>Akash</a>, <a style="color:white;" target="_blank" href='https://www.linkedin.com/in/ashwinsharmap'>Ashwin</a></p></div>
+    <p style="text-align:right;color:tomato;">Find us on LinkedIn. Lead Author: <a style="color:white;" target="_blank" href='https://www.linkedin.com/in/akash-c-3a0468148/'>Akash</a> Co-Author: <a style="color:white;" target="_blank" href='https://www.linkedin.com/in/ashwinsharmap'>Ashwin</a></p></div>
     """
 st.markdown(html_temp,unsafe_allow_html=True)
 # st.subheader("Made with {} by Akash and Ashwin".format(emoji.emojize(":heart:")))
