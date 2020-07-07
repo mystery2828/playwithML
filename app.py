@@ -15,7 +15,6 @@ import emoji
 import random
 import time
 import pandas as pd
-import numpy as np
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from imblearn.over_sampling import SMOTE, RandomOverSampler
@@ -178,7 +177,7 @@ if file_name is not None and option != "Select one":
             n_estimators= st.slider(label='n_estimators', min_value=50, max_value=800, step=50)
             learning_rate= st.slider(label='learning_rate', min_value=0.5, max_value=3.0, step=0.05)
             
-            
+        cross_validation = st.slider(label='cross validation (higher the number more the time taken to train)', min_value=1, max_value=10, step=1)
         submit = st.button('TRAIN')
         
         if submit:
@@ -201,7 +200,7 @@ if file_name is not None and option != "Select one":
             st.write("Give us some {} to build your project".format(emoji.emojize(":watch:")))
             
             ## Function for RandomForestClassifier
-            def randomforestclassifier(X_train,X_test,y_train,y_test,max_depth=None,n_estimators=100,min_samples_split=2):
+            def randomforestclassifier(X_train,X_test,y_train,y_test,max_depth=None,n_estimators=100,min_samples_split=2,cross_validation=2):
                 
                 classifier = RandomForestClassifier()
                 clffit = classifier.fit(X_train,y_train)
@@ -210,7 +209,7 @@ if file_name is not None and option != "Select one":
                                   param_grid = parameters,
                                   n_jobs = -1,
                                   scoring = 'accuracy',
-                                  cv = 2)
+                                  cv = cross_validation)
                 gs.fit(X_train, y_train)
                 classifier = gs.best_estimator_
                 c = classifier.fit(X_train,y_train)
@@ -218,7 +217,7 @@ if file_name is not None and option != "Select one":
                 
             
             ## Function for DecisionTreeCLassifier
-            def decisiontreeclassifier(X_train,X_test,y_train,y_test,max_depth=None,min_samples_split=2,criterion='gini'):
+            def decisiontreeclassifier(X_train,X_test,y_train,y_test,max_depth=None,min_samples_split=2,criterion='gini',cross_validation=2):
                 
                 classifier = DecisionTreeClassifier()
                 clffit = classifier.fit(X_train,y_train)
@@ -227,7 +226,7 @@ if file_name is not None and option != "Select one":
                                   param_grid = parameters,
                                   n_jobs = -1,
                                   scoring = 'accuracy',
-                                  cv = 2)
+                                  cv = cross_validation)
                 gs.fit(X_train, y_train)
                 classifier = gs.best_estimator_
                 c = classifier.fit(X_train,y_train)
@@ -235,7 +234,7 @@ if file_name is not None and option != "Select one":
             
             
             ## Function for SVC
-            def svc(X_train,X_test,y_train,y_test,c=1.0,degree=3,kernel='rbf'):
+            def svc(X_train,X_test,y_train,y_test,c=1.0,degree=3,kernel='rbf',cross_validation=2):
                 
                 classifier = SVC()
                 clffit = classifier.fit(X_train,y_train)
@@ -244,7 +243,7 @@ if file_name is not None and option != "Select one":
                                   param_grid = parameters,
                                   n_jobs = -1,
                                   scoring = 'accuracy',
-                                  cv = 2)
+                                  cv = cross_validation)
                 gs.fit(X_train, y_train)
                 classifier = gs.best_estimator_
                 classifier.fit(X_train,y_train)
@@ -252,7 +251,7 @@ if file_name is not None and option != "Select one":
             
             
             ## Function for sgdclassifier
-            def sgdclassifier(X_train,X_test,y_train,y_test,loss='hinge',penalty='l2',alpha=0.0001):
+            def sgdclassifier(X_train,X_test,y_train,y_test,loss='hinge',penalty='l2',alpha=0.0001,cross_validation=2):
                 
                 classifier = SGDClassifier()
                 clffit = classifier.fit(X_train,y_train)
@@ -261,7 +260,7 @@ if file_name is not None and option != "Select one":
                                   param_grid = parameters,
                                   n_jobs = -1,
                                   scoring = 'accuracy',
-                                  cv = 2)
+                                  cv = cross_validation)
                 gs.fit(X_train, y_train)
                 classifier = gs.best_estimator_
                 c = classifier.fit(X_train,y_train)
@@ -269,7 +268,7 @@ if file_name is not None and option != "Select one":
             
             
             ## Function for gradientboostingclassifier
-            def gradientboostingclassifier(X_train,X_test,y_train,y_test,n_estimators=100,learning_rate=0.1,criterion='friedman_mse'):
+            def gradientboostingclassifier(X_train,X_test,y_train,y_test,n_estimators=100,learning_rate=0.1,criterion='friedman_mse',cross_validation=2):
                 
                 classifier = GradientBoostingClassifier()
                 clffit = classifier.fit(X_train,y_train)
@@ -278,7 +277,7 @@ if file_name is not None and option != "Select one":
                                   param_grid = parameters,
                                   n_jobs = -1,
                                   scoring = 'accuracy',
-                                  cv = 2)
+                                  cv = cross_validation)
                 gs.fit(X_train, y_train)
                 classifier = gs.best_estimator_
                 c = classifier.fit(X_train,y_train)
@@ -286,7 +285,7 @@ if file_name is not None and option != "Select one":
             
             
             ## Function for adaboost
-            def adaboostclassifier(X_train,X_test,y_train,y_test,n_estimators=50,learning_rate=1):
+            def adaboostclassifier(X_train,X_test,y_train,y_test,n_estimators=50,learning_rate=1,cross_validation=2):
                 
                 classifier = AdaBoostClassifier()
                 clffit = classifier.fit(X_train,y_train)
@@ -295,7 +294,7 @@ if file_name is not None and option != "Select one":
                                   param_grid = parameters,
                                   n_jobs = -1,
                                   scoring = 'accuracy',
-                                  cv = 2)
+                                  cv = cross_validation)
                 gs.fit(X_train, y_train)
                 classifier = gs.best_estimator_
                 c = classifier.fit(X_train,y_train)
@@ -387,9 +386,9 @@ if file_name is not None and option != "Select one":
             loss=st.selectbox('loss',['ls','lad','huber','quantile'])
             n_estimators=st.slider(label='n_estimators',min_value=100,max_value=800,step=50)
             learning_rate= st.text_input(label='learning_rate(enter a value between 0.001 to 1.0)',value='0.1')
-            alpha = float(alpha)
+            learning_rate = float(learning_rate)
 
-
+        cross_validation = st.slider(label='cross validation (higher the number more the time taken to train)', min_value=1, max_value=10, step=1)
         submit = st.button('TRAIN')
         
         if submit:
@@ -410,46 +409,46 @@ if file_name is not None and option != "Select one":
             st.write("Give us some {} to build your project".format(emoji.emojize(":watch:")))
             
             #Linear Regression
-            def linearregressor(X_train,X_test,y_train,y_test,normalize=False):
+            def linearregressor(X_train,X_test,y_train,y_test,normalize=False,cross_validation=2):
                 regressor=LinearRegression()
                 parameters=[{'normalize':[normalize]}]
-                regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=2)
+                regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=cross_validation)
                 regressor.fit(X_train,y_train)
                 
                 return regressor.predict(X_test), regressor.best_params_, regressor.score(X_test,y_test)
             
             #Ridge Regression
-            def ridgeregressor(X_train,X_test,y_train,y_test,max_iter=100,solver='auto',alpha=1.0):
+            def ridgeregressor(X_train,X_test,y_train,y_test,max_iter=100,solver='auto',alpha=1.0,cross_validation=2):
                 regressor=Ridge()
                 parameters=[{'max_iter':[max_iter],'solver':[solver],'alpha':[alpha]}]
-                regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=2)
+                regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=cross_validation)
                 regressor.fit(X_train,y_train)
                 
                 return regressor.predict(X_test), regressor.best_params_, regressor.score(X_test,y_test)
                 
             #Lasso Regression
-            def lassoregressor(X_train,X_test,y_train,y_test,max_iter=100,selection='cyclic',alpha=1.0):
+            def lassoregressor(X_train,X_test,y_train,y_test,max_iter=100,selection='cyclic',alpha=1.0,cross_validation=2):
                 regressor=Lasso()
                 parameters=[{'max_iter':[max_iter],'selection':[selection],'alpha':[alpha]}]
-                regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=2)
+                regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=cross_validation)
                 regressor.fit(X_train,y_train)
                 
                 return regressor.predict(X_test), regressor.best_params_, regressor.score(X_test,y_test)
             
             #Decision Tree Regression
-            def decisiontreeregressor(X_train,X_test,y_train,y_test,min_samples_split=2,max_depth=6,criterion='friedman_mse'):
+            def decisiontreeregressor(X_train,X_test,y_train,y_test,min_samples_split=2,max_depth=6,criterion='friedman_mse',cross_validation=2):
                 regressor = DecisionTreeRegressor()
                 parameters=[{'max_depth':[max_depth],'min_samples_split':[min_samples_split],'criterion':[criterion]}]
-                regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=2)
+                regressor=GridSearchCV(regressor,parameters,scoring='r2',cv=cross_validation)
                 regressor.fit(X,y)
 
                 return regressor.predict(X_test), regressor.best_params_, regressor.score(X_test,y_test)
             
             #Gradient Boosting Regression
-            def gradientboostingregressor(X_train,X_test,y_train,y_test,loss='ls',n_estimators=100,learning_rate=0.1):
+            def gradientboostingregressor(X_train,X_test,y_train,y_test,loss='ls',n_estimators=100,learning_rate=0.1,cross_validation=2):
                 regressor = GradientBoostingRegressor()
                 parameters ={'n_estimators':[n_estimators],'loss':[loss],'learning_rate':[learning_rate]}
-                regressor = GridSearchCV(regressor,parameters,scoring='r2', cv=2)
+                regressor = GridSearchCV(regressor,parameters,scoring='r2', cv=cross_validation)
                 regressor.fit(X_train,y_train)
 
                 return regressor.predict(X_test), regressor.best_params_, regressor.score(X_test,y_test)
