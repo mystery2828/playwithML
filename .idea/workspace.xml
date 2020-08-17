@@ -7,6 +7,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -21,7 +28,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager" selected="Python.helper">
+  <component name="RunManager" selected="Python.playwithml">
     <configuration name="helper" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="playwithML" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -66,8 +73,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.helper" />
         <item itemvalue="Python.playwithml" />
+        <item itemvalue="Python.helper" />
       </list>
     </recent_temporary>
   </component>
@@ -97,21 +104,21 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1345" height="111" key="GridCell.Tab.0.bottom" timestamp="1597639640627">
+    <state width="1345" height="262" key="GridCell.Tab.0.bottom" timestamp="1597648380592">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1345" height="111" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1597639640627" />
-    <state width="1345" height="111" key="GridCell.Tab.0.center" timestamp="1597639640627">
+    <state width="1345" height="262" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1597648380592" />
+    <state width="1345" height="262" key="GridCell.Tab.0.center" timestamp="1597648380592">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1345" height="111" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1597639640627" />
-    <state width="1345" height="111" key="GridCell.Tab.0.left" timestamp="1597639640627">
+    <state width="1345" height="262" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1597648380592" />
+    <state width="1345" height="262" key="GridCell.Tab.0.left" timestamp="1597648380591">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1345" height="111" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1597639640627" />
-    <state width="1345" height="111" key="GridCell.Tab.0.right" timestamp="1597639640627">
+    <state width="1345" height="262" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1597648380591" />
+    <state width="1345" height="262" key="GridCell.Tab.0.right" timestamp="1597648380592">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1345" height="111" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1597639640627" />
+    <state width="1345" height="262" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1597648380592" />
   </component>
 </project>
